@@ -16,8 +16,13 @@ jobs:
               uses: docker/setup-qemu-action@v3
             - name: Setup Docker Buildx
               uses: docker/setup-buildx-action@v3
-            - name: Build
+            - name: Login to DockerHub
+              uses: docker/login-action@v2
+              with:
+                username: ${{ secrets.DOCKER_USERNAME }}
+                password: ${{ secrets.DOCKER_TOKEN }}
+            - name: Build and push
               uses: docker/build-push-action@v3
               with:
-                push: false
-                tags: ci-sum-2025
+                push: true
+                tags: gustavokubiack/ci-sum-2025
